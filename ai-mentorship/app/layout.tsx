@@ -20,8 +20,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // 🔧 CRITICAL: Get the key and provide fallback
+  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  
+  if (!publishableKey) {
+    throw new Error('Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY environment variable');
+  }
+
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+    <ClerkProvider publishableKey={publishableKey}>
       <html lang="en">
         <body>
           <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
